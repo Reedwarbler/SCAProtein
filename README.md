@@ -12,5 +12,5 @@ Usage: python main.py Options subtrate_term_file subunit_term_file
 							align          Run multiple sequence alignment
 							all            Run the whole pipeline
 							clear          Clear all old files
-
+							
 		
