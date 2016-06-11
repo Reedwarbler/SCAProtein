@@ -10,7 +10,7 @@ Usage: python main.py Options subtrate_term_file subunit_term_file
 
 Options:
 
-							fetch      Fetch from NCBI by give list
+							fetch          Fetch from NCBI by give list
 
 							cat            Concatenate sequences
 
