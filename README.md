@@ -8,7 +8,8 @@ Make sure python and biopython are installed.
 
 Usage: python main.py Options subtrate_term_file subunit_term_file 
 
-	Options:		fetch      Fetch from NCBI by give list
+Options:		
+							fetch      Fetch from NCBI by give list
 
 							cat            Concatenate sequences
 
@@ -18,4 +19,6 @@ Usage: python main.py Options subtrate_term_file subunit_term_file
 
 							clear          Clear all old files
 							
-		
+Sample usage:
+
+	python main.py all subtrate.list subunit.list
