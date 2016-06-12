@@ -167,6 +167,7 @@ if __name__ == "__main__":
     option=sys.argv[1]
     sf_subtract=sys.argv[2]
     sf_subunit=sys.argv[3]
+    n_threads=4
 
     if option=="fetch":
         l_st, l_su=get_terms(sf_subtract, sf_subunit)
@@ -176,13 +177,13 @@ if __name__ == "__main__":
         concatenate(l_st, l_su)
     elif option=="align":
         l_st, l_su=get_terms(sf_subtract, sf_subunit)
-        multi_seq_alignment(l_st, l_su, 3)
+        multi_seq_alignment(l_st, l_su, n_threads)
     elif option=="all":
         clear()
         l_st, l_su=get_terms(sf_subtract, sf_subunit)
         prepare_database(l_st, l_su)
         concatenate(l_st, l_su)
-        multi_seq_alignment(l_st, l_su, 3)
+        multi_seq_alignment(l_st, l_su, n_threads)
     elif option=="clear":
         clear()
     else:
