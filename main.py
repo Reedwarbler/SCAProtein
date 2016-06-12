@@ -2,6 +2,7 @@ import os
 import sys
 from Bio import Entrez,SeqIO
 from subprocess import *
+from multiprocessing import Pool
 from multiprocessing.dummy import Pool as ThreadPool
 
 def fetch_from_NCBI(term):
@@ -85,6 +86,7 @@ def concatenate(l_st, l_su):
     for term_su in l_su:
         m_sunit={}
         sf_su=term_su+".fa"
+
         if os.path.exists(sf_su):
             for record in SeqIO.parse(sf_su, "fasta"):
                 m_sunit[str(record.id)]=str(record.seq)
@@ -92,16 +94,17 @@ def concatenate(l_st, l_su):
         for term_st in l_st:
             m_stract={}
             sf_st=term_st+".fa"
+
             if os.path.exists(sf_st):
                 for record in SeqIO.parse(sf_st, "fasta"):
                     m_stract[str(record.id)]=str(record.seq)
 
-        sf_cat="concate_"+term_su+"_"+term_st+".fa"
-        with open(sf_cat,"w") as fout_cat:
-            for species in m_sunit:
-                if m_stract.has_key(species):
-                    fout_cat.write(">"+species+"\n")
-                    fout_cat.write(m_sunit[species]+m_stract[species]+"\n")
+            sf_cat="concate_"+term_su+"_"+term_st+".fa"
+            with open(sf_cat,"w") as fout_cat:
+                for species in m_sunit:
+                    if m_stract.has_key(species):
+                        fout_cat.write(">"+species+"\n")
+                        fout_cat.write(m_sunit[species]+m_stract[species]+"\n")
 
 def run_msa(sf_id):
     sf_cat="concate_"+sf_id
@@ -118,7 +121,7 @@ def multi_seq_alignment(l_st, l_su, n_threads):
             if os.path.exists(sf_cat):
                 l_align.append(term_su+"_"+term_st+".fa")
 
-    pool = ThreadPool(n_threads)
+    pool = Pool(n_threads)
     pool.map(run_msa, l_align)
     pool.close()
     pool.join()
@@ -185,4 +188,3 @@ if __name__ == "__main__":
     else:
         print "Wrong option, please check!!!"
         usage()
-
