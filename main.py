@@ -152,7 +152,7 @@ def usage():
     print ""
     print 'Usage: python {0} Options subtrate_term_file subunit_term_file\n'.format(sys.argv[0]),
     print 'Options:\n',
-    print '    fetch      Fetch from NCBI by give list\n',
+    print '    fetch          Fetch from NCBI by give list\n',
     print '    cat            Concatenate sequences\n',
     print '    align          Run multiple sequence alignment\n',
     print '    all            Run the whole pipeline\n',
