@@ -1,0 +1,5 @@
+BatchSize 5000
+RetMax 10000
+N_Threads 4
+WindowSize 15
+N_Species_Gap 1
