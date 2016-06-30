@@ -19,7 +19,7 @@ def read_config(sf_config):
     global window_size
     global n_species_gap
 
-    with open(sf_config) as fin_config:
+    with open(sf_config,"rU") as fin_config:
         for line in fin_config:
             fields=line.split()
             if fields[0]=="BatchSize":
@@ -96,7 +96,7 @@ def cvt_genebank_fq(term):
 
 
 def convert_2_fa(term):
-    with open(term+".txt") as fin_raw:
+    with open(term+".txt","rU") as fin_raw:
         with open("cleaved_"+term+".fa","w") as fout_fa:
             for line in fin_raw:
                 fields=line.split()
@@ -157,7 +157,7 @@ def parse_targetP_out(sf_targetp_out, b_su, sf_original):
         l_fa_seq.append(str(record.seq))
 
     m_new_fa={}
-    with open(sf_targetp_out) as fin_tgt:
+    with open(sf_targetp_out,"rU") as fin_tgt:
         index=0
         for line in fin_tgt:
             fields=line.split()
@@ -329,13 +329,15 @@ def clear():
 def get_terms(sf_subtract, sf_subunit):
     l_subtract=[]
     l_subunit=[]
-    with open(sf_subtract) as fin_st:
+    with open(sf_subtract,"rU") as fin_st:
         for line in fin_st:
+            line=line.rstrip()
             fields=line.split()
             l_subtract.append("-".join(fields))
 
-    with open(sf_subunit) as fin_su:
+    with open(sf_subunit,"rU") as fin_su:
         for line in fin_su:
+            line=line.rstrip()
             fields=line.split()
             l_subunit.append("-".join(fields))
 
@@ -344,12 +346,12 @@ def get_terms(sf_subtract, sf_subunit):
 def get_terms_map(sf_subtract, sf_subunit):
     m_subtract={}
     m_subunit={}
-    with open(sf_subtract) as fin_st:
+    with open(sf_subtract,"rU") as fin_st:
         for line in fin_st:
             fields=line.split()
             m_subtract["-".join(fields)]=1
 
-    with open(sf_subunit) as fin_su:
+    with open(sf_subunit,"rU") as fin_su:
         for line in fin_su:
             fields=line.split()
             m_subunit["-".join(fields)]=1
@@ -390,6 +392,7 @@ if __name__ == "__main__":
         prepare_database(l_st, l_su)
     elif option=="convert":
         l_st, l_su=get_terms(sf_subtract, sf_subunit)
+        #print l_st,l_su###########################################################
         convert_list_2_fa(l_st, l_su)
     elif option=="cleave":
         l_st, l_su=get_terms(sf_subtract, sf_subunit)
